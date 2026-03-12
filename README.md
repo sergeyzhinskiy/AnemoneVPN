@@ -263,6 +263,9 @@ python tools/test_against_dpi.py --dpi-url http://localhost:3000
 MIT License. Подробнее в файле LICENSE.
 
 # 🙏 Благодарности
+
 Проект DPYProxy за идеи по фрагментации 
+
 WebRTC VPN за реализацию peer-to-peer транспорта 
+
 Исследователи из USENIX NSDI 2026 за работу по TTL-маскировке
