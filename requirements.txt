@@ -1,0 +1,26 @@
+# Основные
+asyncio>=3.4.3
+aiohttp>=3.8.0
+websockets>=11.0
+
+# Криптография
+cryptography>=41.0.0
+
+# Научные вычисления
+numpy>=1.24.0
+
+# ML и анализ трафика
+scikit-learn>=1.3.0
+joblib>=1.3.0
+nfstream>=6.0.0  # Для анализа сетевого трафика [citation:1]
+
+# Транспорты
+aiortc>=1.5.0  # WebRTC [citation:2]
+aioquic>=0.9.0  # QUIC
+
+# Конфигурация
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Логирование
+loguru>=0.7.0
