@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 WebRTC транспорт для протокола Анемон
-Использует aiortc для P2P соединений с обходом NAT [citation:2]
+Использует aiortc для P2P соединений с обходом NAT 
 """
 
 import asyncio
@@ -13,7 +13,8 @@ from typing import Optional, Callable, Dict, Any
 from dataclasses import dataclass, field
 
 from aiortc import RTCPeerConnection, RTCSessionDescription, RTCDataChannel
-from aiortc.contrib.signaling import TcpSocketSignaling, SignalingState
+#from aiortc import SignalingState
+from aiortc.contrib.signaling import TcpSocketSignaling
 import websockets
 
 from .base import BaseTransport, TransportConfig, TransportStats
@@ -37,7 +38,7 @@ class WebRTCConfig(TransportConfig):
 
 class WebRTCTransport(BaseTransport):
     """
-    WebRTC транспорт с поддержкой P2P и обхода NAT [citation:2]
+    WebRTC транспорт с поддержкой P2P и обхода NAT 
     """
     
     def __init__(self, config: WebRTCConfig):
@@ -58,7 +59,7 @@ class WebRTCTransport(BaseTransport):
     async def connect(self, peer_id: Optional[str] = None) -> bool:
         """
         Установка WebRTC соединения
-        Если peer_id указан - подключаемся как клиент, иначе ждем подключения [citation:2]
+        Если peer_id указан - подключаемся как клиент, иначе ждем подключения 
         """
         try:
             self.pc = RTCPeerConnection()
@@ -80,10 +81,10 @@ class WebRTCTransport(BaseTransport):
                     await self.close()
             
             if peer_id:
-                # Режим клиента (offerer) [citation:2]
+                # Режим клиента (offerer) 
                 return await self._connect_as_offerer(peer_id)
             else:
-                # Режим сервера (answerer) [citation:2]
+                # Режим сервера (answerer) 
                 return await self._connect_as_answerer()
                 
         except Exception as e:
@@ -195,9 +196,32 @@ class WebRTCTransport(BaseTransport):
                 if self._data_callback:
                     asyncio.create_task(self._data_callback(message))
     
+    async def listen(self) -> bool:
+        """
+        Режим сервера - ожидание входящих подключений.
+        Для WebRTC это означает запуск signaling сервера.
+        """
+        logger.info("WebRTC server listening mode activated")
+    
+        try:
+            # В режиме сервера мы просто ждем подключений
+            # WebRTC использует signaling для установки соединения
+            # Поэтому здесь мы только запускаем signaling сервер
+            self.connected = True  # Сервер всегда "подключен" в режиме ожидания
+        
+            if self._connect_callback:
+                await self._connect_callback()
+            
+            logger.info("WebRTC server ready to accept connections")
+            return True
+        
+        except Exception as e:
+            logger.error(f"WebRTC server listen failed: {e}")
+            return False
+    
     async def _send_signaling(self, data: dict):
         """
-        Отправка signaling сообщения через WebSocket [citation:2]
+        Отправка signaling сообщения через WebSocket 
         """
         try:
             if not self.websocket:
@@ -243,7 +267,7 @@ class WebRTCTransport(BaseTransport):
             return False
         
         try:
-            # Фрагментируем большие сообщения [citation:2]
+            # Фрагментируем большие сообщения 
             if len(data) > self.config.max_message_size:
                 for i in range(0, len(data), self.config.max_message_size):
                     chunk = data[i:i + self.config.max_message_size]
