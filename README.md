@@ -1,7 +1,7 @@
 # Анемон (AnemoneVPN) – Адаптивный протокол для обхода DPI
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-GPL-3.0-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Android](https://img.shields.io/badge/Android-Support-brightgreen)]()
 
 **Анемон** — это экспериментальный VPN-протокол нового поколения, разработанный для противодействия современным системам глубокого анализа пакетов (DPI) и машинного обучения, используемым для блокировки трафика. Название выбрано не случайно: анемон (морской актиния) сливается со средой обитания – так и этот протокол маскирует трафик под легитимные приложения.
